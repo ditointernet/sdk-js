@@ -1,6 +1,4 @@
 // dito
-import helpers from './helpers';
+import Dito from './Dito';
 
-export default {
-  helpers,
-};
+export default Dito;
