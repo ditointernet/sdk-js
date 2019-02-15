@@ -3,9 +3,9 @@ import helpers from './helpers/index';
 class Dito {
   private appKey: string;
   private appSecret: string;
-  static helpers: object;
+  public static helpers: object;
 
-  constructor(appKey: string, appSecret: string) {
+  public constructor(appKey: string, appSecret: string) {
     this.appKey = appKey;
     this.appSecret = appSecret;
   }
