@@ -1,4 +1,6 @@
 // dito
-import sha1 from './helpers/sha1';
+import helpers from './helpers';
 
-export default sha1;
+export default {
+  helpers,
+};
