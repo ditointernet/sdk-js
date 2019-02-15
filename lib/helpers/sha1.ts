@@ -4,34 +4,25 @@
  *  http://www.webtoolkit.info/
  *
  **/
-function SHA1(msg: string) {
-  function rotate_left(n: any, s: any) {
+function SHA1(msg: string): string {
+  function rotateLeft(n: number, s: number): number {
     var t4 = (n << s) | (n >>> (32 - s));
     return t4;
   }
-  function lsb_hex(val: any) {
-    var str = '';
-    var i;
-    var vh;
-    var vl;
-    for (i = 0; i <= 6; i += 2) {
-      vh = (val >>> (i * 4 + 4)) & 0x0f;
-      vl = (val >>> (i * 4)) & 0x0f;
-      str += vh.toString(16) + vl.toString(16);
-    }
-    return str;
-  }
-  function cvt_hex(val: any) {
-    var str = '';
-    var i;
-    var v;
-    for (i = 7; i >= 0; i--) {
+
+  function convertHex(val: number): string {
+    let string = '';
+
+    let v;
+    for (let i = 7; i >= 0; i--) {
       v = (val >>> (i * 4)) & 0x0f;
-      str += v.toString(16);
+      string += v.toString(16);
     }
-    return str;
+
+    return string;
   }
-  function Utf8Encode(string: string) {
+
+  function Utf8Encode(string: string): string {
     string = string.replace(/\r\n/g, '\n');
     var utftext = '';
     for (var n = 0; n < string.length; n++) {
@@ -60,45 +51,45 @@ function SHA1(msg: string) {
   var A, B, C, D, E;
   var temp;
   msg = Utf8Encode(msg);
-  var msg_len = msg.length;
-  var word_array = new Array();
-  for (i = 0; i < msg_len - 3; i += 4) {
+  var messageLength = msg.length;
+  var wordArray = [];
+  for (i = 0; i < messageLength - 3; i += 4) {
     j =
       (msg.charCodeAt(i) << 24) |
       (msg.charCodeAt(i + 1) << 16) |
       (msg.charCodeAt(i + 2) << 8) |
       msg.charCodeAt(i + 3);
-    word_array.push(j);
+    wordArray.push(j);
   }
-  switch (msg_len % 4) {
+  switch (messageLength % 4) {
     case 0:
       i = 0x080000000;
       break;
     case 1:
-      i = (msg.charCodeAt(msg_len - 1) << 24) | 0x0800000;
+      i = (msg.charCodeAt(messageLength - 1) << 24) | 0x0800000;
       break;
     case 2:
       i =
-        (msg.charCodeAt(msg_len - 2) << 24) |
-        (msg.charCodeAt(msg_len - 1) << 16) |
+        (msg.charCodeAt(messageLength - 2) << 24) |
+        (msg.charCodeAt(messageLength - 1) << 16) |
         0x08000;
       break;
     case 3:
       i =
-        (msg.charCodeAt(msg_len - 3) << 24) |
-        (msg.charCodeAt(msg_len - 2) << 16) |
-        (msg.charCodeAt(msg_len - 1) << 8) |
+        (msg.charCodeAt(messageLength - 3) << 24) |
+        (msg.charCodeAt(messageLength - 2) << 16) |
+        (msg.charCodeAt(messageLength - 1) << 8) |
         0x80;
       break;
   }
-  word_array.push(i);
-  while (word_array.length % 16 != 14) word_array.push(0);
-  word_array.push(msg_len >>> 29);
-  word_array.push((msg_len << 3) & 0x0ffffffff);
-  for (blockstart = 0; blockstart < word_array.length; blockstart += 16) {
-    for (i = 0; i < 16; i++) W[i] = word_array[blockstart + i];
+  wordArray.push(i);
+  while (wordArray.length % 16 != 14) wordArray.push(0);
+  wordArray.push(messageLength >>> 29);
+  wordArray.push((messageLength << 3) & 0x0ffffffff);
+  for (blockstart = 0; blockstart < wordArray.length; blockstart += 16) {
+    for (i = 0; i < 16; i++) W[i] = wordArray[blockstart + i];
     for (i = 16; i <= 79; i++)
-      W[i] = rotate_left(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1);
+      W[i] = rotateLeft(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1);
     A = H0;
     B = H1;
     C = H2;
@@ -106,26 +97,26 @@ function SHA1(msg: string) {
     E = H4;
     for (i = 0; i <= 19; i++) {
       temp =
-        (rotate_left(A, 5) + ((B & C) | (~B & D)) + E + W[i] + 0x5a827999) &
+        (rotateLeft(A, 5) + ((B & C) | (~B & D)) + E + W[i] + 0x5a827999) &
         0x0ffffffff;
       E = D;
       D = C;
-      C = rotate_left(B, 30);
+      C = rotateLeft(B, 30);
       B = A;
       A = temp;
     }
     for (i = 20; i <= 39; i++) {
       temp =
-        (rotate_left(A, 5) + (B ^ C ^ D) + E + W[i] + 0x6ed9eba1) & 0x0ffffffff;
+        (rotateLeft(A, 5) + (B ^ C ^ D) + E + W[i] + 0x6ed9eba1) & 0x0ffffffff;
       E = D;
       D = C;
-      C = rotate_left(B, 30);
+      C = rotateLeft(B, 30);
       B = A;
       A = temp;
     }
     for (i = 40; i <= 59; i++) {
       temp =
-        (rotate_left(A, 5) +
+        (rotateLeft(A, 5) +
           ((B & C) | (B & D) | (C & D)) +
           E +
           W[i] +
@@ -133,16 +124,16 @@ function SHA1(msg: string) {
         0x0ffffffff;
       E = D;
       D = C;
-      C = rotate_left(B, 30);
+      C = rotateLeft(B, 30);
       B = A;
       A = temp;
     }
     for (i = 60; i <= 79; i++) {
       temp =
-        (rotate_left(A, 5) + (B ^ C ^ D) + E + W[i] + 0xca62c1d6) & 0x0ffffffff;
+        (rotateLeft(A, 5) + (B ^ C ^ D) + E + W[i] + 0xca62c1d6) & 0x0ffffffff;
       E = D;
       D = C;
-      C = rotate_left(B, 30);
+      C = rotateLeft(B, 30);
       B = A;
       A = temp;
     }
@@ -153,7 +144,11 @@ function SHA1(msg: string) {
     H4 = (H4 + E) & 0x0ffffffff;
   }
   var result =
-    cvt_hex(H0) + cvt_hex(H1) + cvt_hex(H2) + cvt_hex(H3) + cvt_hex(H4);
+    convertHex(H0) +
+    convertHex(H1) +
+    convertHex(H2) +
+    convertHex(H3) +
+    convertHex(H4);
   return result.toLowerCase();
 }
 

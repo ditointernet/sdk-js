@@ -30,7 +30,7 @@
   },
   "husky": {
     "hooks": {
-      "precommit": "npm run format && npm run lint"
+      "pre-commit": "npm run format && npm run lint"
     }
   },
   "homepage": "https://github.com/ditointernet/sdk-js#readme",
@@ -48,6 +48,7 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
+    "sha1-hex": "^1.0.0",
     "superagent": "^4.1.0"
   }
 }
