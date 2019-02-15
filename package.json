@@ -1,0 +1,28 @@
+{
+  "name": "dito",
+  "version": "0.1.1",
+  "description": "Dito SDK for JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ditointernet/sdk-js.git"
+  },
+  "keywords": [
+    "dito",
+    "js",
+    "javascript",
+    "ts",
+    "identify",
+    "track",
+    "typescript"
+  ],
+  "author": "Dito",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ditointernet/sdk-js/issues"
+  },
+  "homepage": "https://github.com/ditointernet/sdk-js#readme"
+}
