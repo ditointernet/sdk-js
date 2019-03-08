@@ -1,32 +1,30 @@
-import typescript from 'rollup-plugin-typescript';
 // import uglify from 'rollup-plugin-uglify';
 import pkg from './package.json';
 
-const banner = `/* 
+const banner = `/*
  * @preserve
- * gfynonce v${pkg.version} (${pkg.homepage})
+ * Dito v${pkg.version} (${pkg.homepage})
  * ${pkg.description}
  * MIT License
- * 
+ *
  */`;
 
-const plugins = [typescript()];
+const output = [
+  {
+    file: pkg.main,
+    format: 'umd',
+    name: pkg.name,
+    banner,
+  },
+  {
+    file: pkg.module,
+    format: 'js',
+  },
+];
 
 const regularConfig = {
-  plugins,
-  input: 'lib/index.ts',
-  output: [
-    {
-      file: pkg.main,
-      format: 'umd',
-      name: pkg.name,
-      banner,
-    },
-    {
-      file: pkg.module,
-      format: 'es',
-    },
-  ],
+  input: 'lib/index.js',
+  output,
 };
 
 // const minifiedConfig = Object.assign({}, regularConfig, {
