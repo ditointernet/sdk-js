@@ -18,7 +18,7 @@ const output = [
   },
   {
     file: pkg.module,
-    format: 'js',
+    format: 'es',
   },
 ];
 

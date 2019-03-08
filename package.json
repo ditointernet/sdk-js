@@ -6,8 +6,8 @@
   "module": "dist/dito.es.js",
   "browser": "dist/dito.min.js",
   "scripts": {
-    "format": "pretty-quick --staged --pattern '{lib}/**/*.{js}'",
-    "lint": "eslint --fix \"lib/**/*{js}\"",
+    "format": "pretty-quick --staged --pattern 'lib/**/*.js'",
+    "lint": "eslint --fix \"lib/**/*.js\"",
     "build": "rollup -c"
   },
   "repository": {
